@@ -41,11 +41,11 @@ public class EventNGOModel {
         this.location = location;
     }
 
-    public Date getDate() {
+    public String  getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -73,10 +73,19 @@ public class EventNGOModel {
         this.volunteerCount = volunteerCount;
     }
 
-    private Date date;
+    private String date;
     private String ngoId;
     private String imageUrl;
     private int volunteerCount;
+    private int participantCount;
+
+    public int getParticipantCount() {
+        return participantCount;
+    }
+
+    public void setParticipantCount(int participantCount) {
+        this.participantCount = participantCount;
+    }
 
 
 }

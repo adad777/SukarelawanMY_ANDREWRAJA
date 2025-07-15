@@ -1,7 +1,10 @@
-package com.example.sukarelawanmy.model;
+package com.example.sukarelawanmy.feature.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.sukarelawanmy.model.UserModel;
+
 public class ShareViewModel extends ViewModel {
 
 

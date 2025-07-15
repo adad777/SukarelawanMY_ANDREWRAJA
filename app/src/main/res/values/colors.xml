@@ -8,4 +8,17 @@
     <color name="text">#CFAD8C</color>
     <color name="text_gray">#ADADAD</color>
     <color name="dark_gray">#4D4D4D</color>
+    <color name="chip_background">#E8F5E9</color>
+    <color name="primaryColor">#4CAF50</color>
+    <color name="icon_gray">#666666</color>
+    <color name="bg_light_gray">#FAFAFA</color>
+    <color name="light_green_background">#F5F9F5</color>
+    <color name="green_primary">#4CAF50</color>
+    <color name="dark_text">#263238</color>
+    <color name="medium_text">#546E7A</color>
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="image_placeholder">#E8F5E9</color>
+
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="stats_card">#2A2A2A</color>
 </resources>

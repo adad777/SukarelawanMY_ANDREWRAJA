@@ -1,5 +1,7 @@
 package com.example.sukarelawanmy.feature.auth;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.sukarelawanmy.R;
 import com.example.sukarelawanmy.databinding.FragmentRegisterBinding;
-import com.example.sukarelawanmy.model.ShareViewModel;
+import com.example.sukarelawanmy.feature.viewmodel.ShareViewModel;
 import com.example.sukarelawanmy.model.UserModel;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -58,11 +61,13 @@ public class RegisterFragment extends Fragment {
 
         binding.createAccountButton.setOnClickListener(v -> {
             if (validateInputs()) {
+                hideKeyboard();
                 registerUser();
             }
         });
 
         binding.loginPrompt.setOnClickListener(v -> {
+            hideKeyboard();
            // navController.navigate(R.id.action_registerFragment_to_loginFragment);
             navController.popBackStack();
 
@@ -136,13 +141,30 @@ public class RegisterFragment extends Fragment {
                         // Registration success
                         FirebaseUser user = mAuth.getCurrentUser();
                          saveUserToFirestore(user, fullName, role);
-                    } else {
-                        // If registration fails, display a message to the user.
-                        Toast.makeText(getContext(), "Registration failed: " +
-                                        task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        if (user != null) {
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(verifyTask -> {
+                                        if (verifyTask.isSuccessful()) {
+                                            saveUserToFirestore(user, fullName, role);
+                                            showMessageDialog("Registration successful!\nA verification email has been sent to " + email + ". Please verify before logging in.");
+                                            FirebaseAuth.getInstance().signOut(); // Log out until email is verified
+                                            navController.popBackStack(); // Return to Login screen
+                                        } else {
+                                            showMessageDialog("Failed to send verification email: " + verifyTask.getException().getMessage());
+                                        }
+                                    });
+                        }
+                    } else {showMessageDialog("Registration failed: " +
+                        task.getException().getMessage());
                     }
                 });
+    }
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireView().getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        }
     }
 
     private void saveUserToFirestore(FirebaseUser user, String fullName, String role) {
@@ -156,27 +178,30 @@ public class RegisterFragment extends Fragment {
         userData.put("role", role);
         userData.put("createdAt", System.currentTimeMillis());
         userData.put("joinDate", new Timestamp(new Date()));
+
         db.collection("users").document(user.getUid())
                 .set(userData)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                        UserModel userModel = new UserModel(
-                                user.getUid(),
-                                fullName,
-                                user.getEmail(),
-                                role
-                        );
 
-                        userModel.setJoinDate(new Timestamp(new Date()).toDate());
-                        userViewModel.setUser(userModel);
-
-                        if ("NGO".equalsIgnoreCase(role)) {
-                            navController.navigate(R.id.action_registerFragment_to_homeFragment);
-                        } else if ("Volunteer".equalsIgnoreCase(role)) {
-                            navController.navigate(R.id.action_registerFragment_to_dashboardFragment);
-                        }
+//                        Toast.makeText(getContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
+//
+//                        UserModel userModel = new UserModel(
+//                                user.getUid(),
+//                                fullName,
+//                                user.getEmail(),
+//                                role
+//                        );
+//
+//                        userModel.setJoinDate(new Timestamp(new Date()).toDate());
+//                        userViewModel.setUser(userModel);
+//
+//                        if ("NGO".equalsIgnoreCase(role)) {
+//                            navController.navigate(R.id.action_registerFragment_to_homeFragment);
+//                        } else if ("Volunteer".equalsIgnoreCase(role)) {
+//                            navController.navigate(R.id.action_registerFragment_to_dashboardFragment);
+//                        }
                     } else {
                         Toast.makeText(getContext(), "Failed to save user data: " +
                                 task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -205,6 +230,13 @@ public class RegisterFragment extends Fragment {
             binding.progressBar.setVisibility(View.GONE);
             binding.createAccountButton.setEnabled(true);
         }
+    }
+    private void showMessageDialog( String message) {
+        new AlertDialog.Builder(requireContext())
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     @Override

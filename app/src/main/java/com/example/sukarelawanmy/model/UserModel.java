@@ -1,5 +1,6 @@
 package com.example.sukarelawanmy.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserModel {
@@ -8,7 +9,43 @@ public class UserModel {
     private String email;
     private String role;
     private Date joinDate;
+    private String profileImageUrl;
+    private String phone;
+    private String address;
+    private ArrayList<String> skills;
     public UserModel() {}
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public ArrayList<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        this.skills = skills;
+    }
 
     public Date getJoinDate() {
         return joinDate;

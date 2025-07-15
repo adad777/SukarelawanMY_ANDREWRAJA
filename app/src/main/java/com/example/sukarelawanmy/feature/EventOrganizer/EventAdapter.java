@@ -59,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         void bind(EventNGOModel event) {
             binding.eventTitle.setText(event.getTitle());
-            binding.volunteerCount.setText(event.getVolunteerCount() + " volunteers");
+            binding.volunteerCount.setText(event.getParticipantCount() + " volunteers");
 
 //            Glide.with(binding.getRoot().getContext())
 //                    .load(event.getImageUrl())

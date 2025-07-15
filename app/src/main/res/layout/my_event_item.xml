@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Right arrow for details -->
+        <ImageView
+            android:id="@+id/btnDetails"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            android:contentDescription="Details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#666666" />
+
+        <!-- Title Label -->
+        <TextView
+            android:id="@+id/labelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event:"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Event Title Value -->
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Event Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/labelTitle"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintTop_toTopOf="@id/labelTitle"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Date Label -->
+        <TextView
+            android:id="@+id/labelDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date:"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelTitle"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Event Date Value -->
+        <TextView
+            android:id="@+id/eventDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DD/MM/YYYY"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            app:layout_constraintStart_toEndOf="@id/labelDate"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintTop_toTopOf="@id/labelDate"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Organizer Label -->
+        <TextView
+            android:id="@+id/labelOrganizer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Organizer:"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelDate"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Organizer Name Value -->
+        <TextView
+            android:id="@+id/eventOrganizer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Organizer Name"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            app:layout_constraintStart_toEndOf="@id/labelOrganizer"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintTop_toTopOf="@id/labelOrganizer"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Time Label -->
+        <TextView
+            android:id="@+id/labelTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time:"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelOrganizer"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Event Time Value -->
+        <TextView
+            android:id="@+id/eventTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="HH:mm"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            app:layout_constraintStart_toEndOf="@id/labelTime"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintTop_toTopOf="@id/labelTime"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Join Button -->
+        <Button
+            android:id="@+id/btnJoin"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:text="Unjoin"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventTime"
+            android:layout_marginTop="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

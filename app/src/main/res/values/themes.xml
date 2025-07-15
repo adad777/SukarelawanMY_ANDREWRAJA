@@ -4,6 +4,10 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="closeIconTint">@color/primaryColor</item>
+    </style>
     <style name="Theme.SukarelawanMy" parent="Base.Theme.SukarelawanMy" />
 </resources>

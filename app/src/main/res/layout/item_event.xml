@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardEventItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <!-- Event Image -->
+        <ImageView
+            android:id="@+id/imgEventBanner"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image_placeholder"
+            android:contentDescription="Event banner image"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Category Chip -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipEventCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Community"
+            app:chipBackgroundColor="#E8F5E9"
+            app:chipStrokeColor="#4CAF50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgEventBanner"/>
+
+        <!-- Event Title -->
+        <TextView
+            android:id="@+id/txtEventTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Community Cleanup at Taman Tasik Perdana"
+            android:textColor="#263238"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipEventCategory"/>
+
+        <!-- Date and Time -->
+        <LinearLayout
+            android:id="@+id/layoutDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtEventTitle">
+
+            <ImageView
+                android:id="@+id/imgCalendarIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/orange"/>
+
+            <TextView
+                android:id="@+id/txtEventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="July 15, 2024"
+                android:textColor="#546E7A"/>
+
+            <View
+                android:id="@+id/viewDivider"
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="#BDBDBD"/>
+
+            <ImageView
+                android:id="@+id/imgClockIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/orange"/>
+
+            <TextView
+                android:id="@+id/txtEventTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00 AM - 12:00 PM"
+                android:textColor="#546E7A"/>
+        </LinearLayout>
+
+        <!-- Action Buttons Container -->
+        <LinearLayout
+            android:id="@+id/layoutActionButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/layoutDateTime">
+
+            <!-- Join Button (Visible only for volunteers) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnJoinEvent"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Join"
+                android:textColor="@color/white"
+                android:visibility="visible"
+                app:backgroundTint="@color/orange"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_volunteer"
+                app:iconTint="@color/white"/>
+
+            <!-- Organizer Options (Visible only for organizers) -->
+            <LinearLayout
+                android:id="@+id/layoutOrganizerOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditEvent"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Edit"
+                    android:textColor="@color/green_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_edit"
+                    app:iconTint="@color/green_primary"
+                    app:strokeColor="@color/green_primary"
+                    app:strokeWidth="1dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnViewParticipants"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Participants"
+                    android:textColor="@color/green_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_people"
+                    app:iconTint="@color/green_primary"
+                    app:strokeColor="@color/green_primary"
+                    app:strokeWidth="1dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

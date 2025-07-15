@@ -1,5 +1,7 @@
 package com.example.sukarelawanmy.feature.auth;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,16 +9,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sukarelawanmy.R;
 import com.example.sukarelawanmy.databinding.FragmentLoginBinding;
-import com.example.sukarelawanmy.model.ShareViewModel;
+import com.example.sukarelawanmy.feature.viewmodel.ShareViewModel;
 import com.example.sukarelawanmy.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -54,16 +59,31 @@ public class LoginFragment extends Fragment {
 
         binding.loginButton.setOnClickListener(v -> {
             if (validateInputs()) {
+                hideKeyboard();
                 loginUser();
             }
         });
 
         binding.forgotPasswordText.setOnClickListener(v -> {
+            hideKeyboard();
             showForgotPasswordDialog();
         });
 
         binding.registerPrompt.setOnClickListener(v -> {
+            hideKeyboard();
             navController.navigate(R.id.action_loginFragment_to_registerFragment);
+        });
+
+        binding.togglePassword.setOnClickListener(v -> {
+            int selection = binding.passwordEditText.getSelectionEnd();
+            if (binding.passwordEditText.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                binding.passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                binding.togglePassword.setImageResource(R.drawable.ic_visibility);
+            } else {
+                binding. passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                binding.togglePassword.setImageResource(R.drawable.ic_visibility_off);
+            }
+            binding.passwordEditText.setSelection(selection);
         });
     }
 
@@ -105,17 +125,40 @@ public class LoginFragment extends Fragment {
                     showLoading(false);
 
                     if (task.isSuccessful()) {
-                        // Sign in success
                         FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
+                        if (user != null && !user.isEmailVerified()) {
+                            updateUI(user);
+                            showResendVerificationDialog(user);
+                           mAuth.signOut(); // prevent access until verified
+                        } else {
+                            // Email verified — proceed
+                            updateUI(user);
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(getContext(), "Authentication failed: " +
-                                        task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                           showMessageDialog("User Email or password is not correct");
                         updateUI(null);
                     }
                 });
+    }
+    private void showResendVerificationDialog(FirebaseUser user) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Email not verified")
+                .setMessage("Your email address is not verified. Please verify to continue.")
+                .setPositiveButton("Resend Email", (dialog, which) -> {
+                    user.sendEmailVerification()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Verification email sent to " + user.getEmail(), Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Failed to resend email: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
+                .show();
     }
 
     private void showForgotPasswordDialog() {
@@ -129,9 +172,8 @@ public class LoginFragment extends Fragment {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getContext(),
-                                "Password reset email sent to " + email,
-                                Toast.LENGTH_SHORT).show();
+                        showMessageDialog("Password reset email sent to " + email);
+
                     } else {
                         Toast.makeText(getContext(),
                                 "Failed to send reset email: " + task.getException().getMessage(),
@@ -139,18 +181,6 @@ public class LoginFragment extends Fragment {
                     }
                 });
     }
-
-//    private void updateUI(FirebaseUser user) {
-//        if (user != null) {
-//            // User is signed in
-//           // Toast.makeText(getContext(), "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
-//            navController.navigate(R.id.action_loginFragment_to_dashboardFragment);
-//            ;
-//        } else {
-//            // User is signed out
-//            binding.passwordEditText.setText("");
-//        }
-//    }
 private void updateUI(FirebaseUser user) {
     if (user == null) {
         binding.passwordEditText.setText("");
@@ -178,7 +208,7 @@ private void updateUI(FirebaseUser user) {
                     }
 
                 } else {
-                    Toast.makeText(getContext(), "User data not found", Toast.LENGTH_SHORT).show();
+                    showMessageDialog("User data not found");
                 }
             })
             .addOnFailureListener(e -> {
@@ -186,6 +216,20 @@ private void updateUI(FirebaseUser user) {
             });
 }
 
+    private void showMessageDialog( String message) {
+        new AlertDialog.Builder(requireContext())
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireView().getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        }
+    }
 
     private void showLoading(boolean isLoading) {
         if (isLoading) {

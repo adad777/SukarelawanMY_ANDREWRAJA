@@ -13,6 +13,15 @@
         <action
             android:id="@+id/action_dashboardFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileMangmentOrgFragment"
+            app:destination="@id/profileMangmentOrgFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_myEventsFragment"
+            app:destination="@id/myEventsFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -41,10 +50,14 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -54,10 +67,71 @@
         <action
             android:id="@+id/action_homeFragment_to_createEventFragment"
             app:destination="@id/createEventFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileMangmentOrgFragment"
+            app:destination="@id/profileMangmentOrgFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_participationFragment"
+            app:destination="@id/participationFragment" />
     </fragment>
     <fragment
         android:id="@+id/createEventFragment"
         android:name="com.example.sukarelawanmy.feature.EventOrganizer.CreateEventFragment"
         android:label="fragment_create_event"
         tools:layout="@layout/fragment_create_event" />
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.example.sukarelawanmy.feature.eventdetails.EventDetailsFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/fragment_event_details" >
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_participationFragment"
+            app:destination="@id/participationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileMangmentOrgFragment"
+        android:name="com.example.sukarelawanmy.feature.profile.ProfileMangmentOrgFragment"
+        android:label="fragment_profile_mangment_org"
+        tools:layout="@layout/fragment_profile_mangment_org" >
+        <action
+            android:id="@+id/action_profileMangmentOrgFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myEventsFragment"
+        android:name="com.example.sukarelawanmy.feature.myevents.MyEventsFragment"
+        android:label="fragment_my_events"
+        tools:layout="@layout/fragment_my_events" >
+        <action
+            android:id="@+id/action_myEventsFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allEventsFragment"
+        android:name="com.example.sukarelawanmy.feature.allevents.AllEventsFragment"
+        android:label="fragment_all_events"
+        tools:layout="@layout/fragment_all_events" >
+        <action
+            android:id="@+id/action_allEventsFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+        <action
+            android:id="@+id/action_allEventsFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment" />
+        <action
+            android:id="@+id/action_allEventsFragment_to_participationFragment"
+            app:destination="@id/participationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/participationFragment"
+        android:name="com.example.sukarelawanmy.feature.eventparticipation.ParticipationFragment"
+        android:label="fragment_participation"
+        tools:layout="@layout/fragment_participation" />
 </navigation>

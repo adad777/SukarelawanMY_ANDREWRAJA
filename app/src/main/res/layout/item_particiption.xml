@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Participant Profile Image -->
+        <ImageView
+            android:id="@+id/participantImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle_background"
+            android:contentDescription="Participant image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_placeholder"
+            app:layout_constraintEnd_toStartOf="@+id/participantName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Participant Name -->
+        <TextView
+            android:id="@+id/participantName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="John Doe"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@id/participantImage"
+            app:layout_constraintTop_toTopOf="@id/participantImage"
+            app:layout_constraintEnd_toStartOf="@+id/joinStatus"/>
+
+        <!-- Join Status (Approved/Pending) -->
+        <TextView
+            android:id="@+id/joinStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approved"
+            android:textColor="#4CAF50"
+            android:textSize="12sp"
+            android:background="@color/orange"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/participantName"/>
+
+
+        <!-- Join Date and Time -->
+        <TextView
+            android:id="@+id/joinDateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Joined: Oct 25, 2024 · 09:30 AM"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@id/participantName"
+            app:layout_constraintTop_toBottomOf="@id/participantName"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Participant Skills -->
+        <LinearLayout
+            android:id="@+id/skillsContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintStart_toStartOf="@id/participantName"
+            app:layout_constraintTop_toBottomOf="@id/joinDateTime"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skills: "
+                android:textColor="#666666"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/participantSkills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Programming, Leadership"
+                android:textColor="#666666"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!-- Participant Address -->
+        <TextView
+            android:id="@+id/participantAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="123 Main St, City, Country"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="@id/participantName"
+            app:layout_constraintTop_toBottomOf="@id/skillsContainer"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancelParticipation"/>
+
+        <!-- Cancel Participation Button -->
+        <Button
+            android:id="@+id/btnCancelParticipation"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:backgroundTint="#FF3D3D"
+            android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/joinDateTime"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

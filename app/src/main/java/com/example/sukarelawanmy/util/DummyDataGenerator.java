@@ -30,7 +30,7 @@ public class DummyDataGenerator {
 
         for (int i = 0; i < titles.length; i++) {
             Event event = new Event();
-            event.setId("event_" + (i + 1));
+            event.setEventId("event_" + (i + 1));
             event.setTitle(titles[i]);
             event.setLocation(locations[i]);
             event.setDescription(descriptions[i]);
@@ -38,7 +38,7 @@ public class DummyDataGenerator {
             // Set date to i days from now
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_MONTH, i + 1);
-            event.setDate(calendar.getTime());
+            event.setDate(calendar.getTime().toString());
 
             event.setImageUrl(imageUrls[i]);
 
