@@ -1,6 +1,7 @@
 package com.example.sukarelawanmy.feature.auth;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ public class LoginFragment extends Fragment {
     private  NavController navController;
     private ShareViewModel sharedViewModel;
     private FirebaseFirestore db;
+    ProgressDialog progress;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(ShareViewModel.class);
         db = FirebaseFirestore.getInstance();
+        progress = new ProgressDialog(requireContext());
         navController =NavHostFragment.findNavController(LoginFragment.this);
         return binding.getRoot();
     }
@@ -127,6 +130,7 @@ public class LoginFragment extends Fragment {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && !user.isEmailVerified()) {
+                     //   if (false) {
                             updateUI(user);
                             showResendVerificationDialog(user);
                            mAuth.signOut(); // prevent access until verified
@@ -231,19 +235,22 @@ private void updateUI(FirebaseUser user) {
         }
     }
 
+
     private void showLoading(boolean isLoading) {
+        progress.setMessage("Loading...");
+        progress.setCancelable(false);
+
         if (isLoading) {
-            binding.progressBar.setVisibility(View.VISIBLE);
-            binding.loginButton.setEnabled(false);
+            progress.show();
         } else {
-            binding.progressBar.setVisibility(View.GONE);
-            binding.loginButton.setEnabled(true);
+            if (progress != null && progress.isShowing()) {
+                progress.dismiss();
+            }
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

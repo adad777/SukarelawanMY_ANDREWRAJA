@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/dashboardFragment"
@@ -134,4 +134,15 @@
         android:name="com.example.sukarelawanmy.feature.eventparticipation.ParticipationFragment"
         android:label="fragment_participation"
         tools:layout="@layout/fragment_participation" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.sukarelawanmy.feature.auth.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

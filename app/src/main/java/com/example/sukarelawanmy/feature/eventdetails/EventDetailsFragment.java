@@ -347,11 +347,14 @@ public class EventDetailsFragment extends Fragment {
         db.collection("events").document(eventId)
                 .get()
                 .addOnSuccessListener(document -> {
-                    Long current = document.getLong("currentParticipants");
-                    Long max = document.getLong("maxParticipants");
-                    if (current != null && max != null) {
-                        binding.participantsCount.setText(getString(R.string.participants_format, current, max));
-                    }
+                    try {
+                        Long current = document.getLong("currentParticipants");
+                        Long max = document.getLong("maxParticipants");
+                        if (current != null && max != null) {
+                            binding.participantsCount.setText(getString(R.string.participants_format, current, max));
+                        }
+                    }catch (Exception e){}
+
                 });
     }
 
@@ -511,6 +514,7 @@ public class EventDetailsFragment extends Fragment {
 
         DocumentReference userRef = db.collection("users").document(userId);
         batch.update(userRef, "eventsAttended", FieldValue.increment(1));
+        batch.update(userRef, "totalMinutesVolunteered", FieldValue.increment(event.getTotalMinutes()));
 
         batch.commit()
                 .addOnSuccessListener(aVoid -> {
@@ -610,6 +614,7 @@ public class EventDetailsFragment extends Fragment {
                         // Decrease user's attended event count
                         DocumentReference userRef = db.collection("users").document(userId);
                         batch.update(userRef, "eventsAttended", FieldValue.increment(-1));
+                        batch.update(userRef, "totalMinutesVolunteered", FieldValue.increment(-event.getTotalMinutes()));
 
                         // Commit batch
                         showProgressDialog();
@@ -662,6 +667,7 @@ public class EventDetailsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        binding=null;
+
     }
 }

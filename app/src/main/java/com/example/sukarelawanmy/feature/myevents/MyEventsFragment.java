@@ -147,8 +147,13 @@ public class MyEventsFragment extends Fragment {
                 });
     }
     private void showEmptyState(boolean show) {
-        binding.eventsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-        binding.emptyState.setVisibility(show ? View.VISIBLE : View.GONE);
+        try {
+            binding.eventsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+            binding.emptyState.setVisibility(show ? View.VISIBLE : View.GONE);
+        } catch (Exception e) {
+
+        }
+
     }
 
     private void navigateToEventDetail(Event event) {
@@ -208,6 +213,5 @@ public class MyEventsFragment extends Fragment {
         if (eventsListener != null) {
             eventsListener.remove();
         }
-        binding = null;
     }
 }

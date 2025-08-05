@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -134,8 +135,9 @@ public class CreateEventFragment extends Fragment {
         // Date Picker
         binding.eventDate.setOnClickListener(v -> showDatePicker());
 
-        // Time Picker
-        binding.eventTime.setOnClickListener(v -> showTimePicker());
+        binding.eventTime.setOnClickListener(v -> showTimePicker(binding.eventTime));
+        binding.EndEventTime.setOnClickListener(v -> showTimePicker(binding.EndEventTime));
+
     }
 
     private void showDatePicker() {
@@ -151,18 +153,19 @@ public class CreateEventFragment extends Fragment {
         datePicker.show();
     }
 
-    private void showTimePicker() {
+    private void showTimePicker(EditText targetField) {
         Calendar calendar = Calendar.getInstance();
         TimePickerDialog timePicker = new TimePickerDialog(requireContext(),
                 (view, hour, minute) -> {
                     String time = String.format("%02d:%02d", hour, minute);
-                    binding.eventTime.setText(time);
+                    targetField.setText(time);
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 true);
         timePicker.show();
     }
+
 
     private void setupClickListeners() {
         // Image upload
@@ -232,6 +235,38 @@ public class CreateEventFragment extends Fragment {
             showError("Please enter event title");
             return false;
         }
+
+
+
+        if (binding.eventDate.getText().toString().trim().isEmpty()) {
+            showError("Please select date");
+            return false;
+        }
+
+        if (binding.eventTime.getText().toString().trim().isEmpty()) {
+            showError("Please select event start time");
+            return false;
+        }
+
+        if (binding.EndEventTime.getText().toString().trim().isEmpty()) {
+            showError("Please select event end time");
+            return false;
+        }
+
+        // ✅ Validate that end time is after start time
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            Date startTime = sdf.parse(binding.eventTime.getText().toString().trim());
+            Date endTime = sdf.parse(binding.EndEventTime.getText().toString().trim());
+
+            if (startTime != null && endTime != null && !endTime.after(startTime)) {
+                showError("End time must be after start time");
+                return false;
+            }
+        } catch (ParseException e) {
+            showError("Invalid time format");
+            return false;
+        }
         if (binding.eventCity.getText().toString().trim().isEmpty()) {
             showError("Please enter event city");
             return false;
@@ -241,17 +276,20 @@ public class CreateEventFragment extends Fragment {
             showError("Please enter location");
             return false;
         }
+        if (binding.maxParticipants.getText().toString().trim().isEmpty() ||
+                Integer.parseInt(binding.maxParticipants.getText().toString().trim()) <= 0) {
+            showError("Please set Max Participants");
+            return false;
+        }
 
-        if (binding.eventDate.getText().toString().trim().isEmpty()) {
-            showError("Please select date");
+        if (getAllRequirements().isEmpty()) {
+            showError("Please add at least one requirement");
             return false;
         }
-        if (binding.eventTime.getText().toString().trim().isEmpty()) {
-            showError("Please select time");
-            return false;
-        }
+
         return true;
     }
+
 
     private void showError(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
@@ -285,6 +323,7 @@ public class CreateEventFragment extends Fragment {
         binding.eventCity.setText(document.getString("eventCity"));
         binding.eventDate.setText(document.getString("date"));
         binding.eventTime.setText(document.getString("time"));
+        binding.EndEventTime.setText(document.getString("endTime"));
         binding.eventCategory.setText(document.getString("eventCategory"));
 
         // Max Participants
@@ -387,28 +426,50 @@ public class CreateEventFragment extends Fragment {
 
     private Map<String, Object> createEventDataMap(String imageUrl, String userId, String eventId) {
         Map<String, Object> event = new HashMap<>();
-        List<String> requirements = new ArrayList<>();
+
+        String startTime = binding.eventTime.getText().toString().trim();
+        String endTime = binding.EndEventTime.getText().toString().trim();
+        int totalMinutes = calculateEventDurationInMinutes(startTime, endTime);
+
         event.put("eventId", eventId); // Store the auto-generated ID
         event.put("title", binding.eventTitle.getText().toString().trim());
         event.put("description", binding.eventDescription.getText().toString().trim());
         event.put("location", binding.eventLocation.getText().toString().trim());
         event.put("eventCity", binding.eventCity.getText().toString().trim());
         event.put("date", binding.eventDate.getText().toString().trim());
-        event.put("time", binding.eventTime.getText().toString().trim());
+        event.put("time", startTime);
+        event.put("endTime", endTime);
+        event.put("totalMinutes", totalMinutes);
         event.put("imageUrl", imageUrl);
         event.put("ngoId", userId);
         event.put("status", "open");
         event.put("timestamp", FieldValue.serverTimestamp());
         event.put("createdAt", FieldValue.serverTimestamp());
         event.put("eventCategory", binding.eventCategory.getText().toString().trim());
-//        event.put("requiresApproval", binding.checkboxRequiresApproval.isChecked());
         event.put("requiresApproval", false);
         event.put("organizerName", userViewModel.getUser().getValue().getFullName());
         event.put("requirement", getAllRequirements());
         event.put("currentParticipants", 0);
         event.put("maxParticipants", getMaxParticipantsFromInput());
+
         return event;
     }
+
+    // Helper method to calculate duration in minutes
+    private int calculateEventDurationInMinutes(String startTime, String endTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            Date start = sdf.parse(startTime);
+            Date end = sdf.parse(endTime);
+
+            long differenceMillis = end.getTime() - start.getTime();
+            return (int) (differenceMillis / (1000 * 60));
+        } catch (ParseException | NullPointerException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     private List<String> getAllRequirements() {
         List<String> requirements = new ArrayList<>();
         int chipCount = binding.requirementsChipGroup.getChildCount();
@@ -475,6 +536,7 @@ public class CreateEventFragment extends Fragment {
         updates.put("eventCity", binding.eventCity.getText().toString().trim());
         updates.put("date", binding.eventDate.getText().toString().trim());
         updates.put("time", binding.eventTime.getText().toString().trim());
+        updates.put("totalMinutes", binding.EndEventTime.getText().toString().trim());
         updates.put("eventCategory", binding.eventCategory.getText().toString().trim());
         updates.put("requirement", getAllRequirements());
         updates.put("maxParticipants", getMaxParticipantsFromInput());
@@ -523,6 +585,6 @@ public class CreateEventFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+
     }
 }

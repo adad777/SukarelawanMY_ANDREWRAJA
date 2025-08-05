@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@color/card_background"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/orange"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,7 +109,7 @@
             android:id="@+id/labelTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time:"
+            android:text="Start Time:"
             android:textSize="14sp"
             android:textColor="#999999"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,6 +129,30 @@
             app:layout_constraintTop_toTopOf="@id/labelTime"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"/>
+ <TextView
+            android:id="@+id/labelEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Time:"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelTime"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Event Time Value -->
+        <TextView
+            android:id="@+id/eventEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="HH:mm"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            app:layout_constraintStart_toEndOf="@id/labelEndTime"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintTop_toTopOf="@id/labelEndTime"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <!-- Join Button -->
         <Button
@@ -133,12 +160,14 @@
             android:layout_width="120dp"
             android:layout_height="48dp"
             android:text="Unjoin"
+            android:visibility="gone"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:backgroundTint="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/eventTime"
             android:layout_marginTop="16dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

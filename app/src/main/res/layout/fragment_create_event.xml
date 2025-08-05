@@ -166,6 +166,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
+                    <!-- Date Picker -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/dateInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Date"
+                        app:boxStrokeColor="@color/orange"
+                        app:hintTextColor="@color/orange">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eventDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/dark_text"
+                            android:inputType="none"
+                            android:focusable="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <!-- Date and Time Row -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -174,27 +194,6 @@
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <!-- Date Picker -->
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/dateInputLayout"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:hint="Date"
-                            app:boxStrokeColor="@color/orange"
-                            app:hintTextColor="@color/orange">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/eventDate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/dark_text"
-                                android:inputType="none"
-                                android:focusable="false" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
                         <!-- Time Picker -->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/timeInputLayout"
@@ -202,7 +201,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Time"
+                            android:layout_marginEnd="4dp"
+                            android:hint="Start time"
                             app:boxStrokeColor="@color/orange"
                             app:hintTextColor="@color/orange">
 
@@ -214,6 +214,27 @@
                                 android:inputType="none"
                                 android:focusable="false" />
                         </com.google.android.material.textfield.TextInputLayout>
+                         <!-- end Time Picker -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/EndTimeInputLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="End time"
+                            android:layout_marginStart="4dp"
+                            app:boxStrokeColor="@color/orange"
+                            app:hintTextColor="@color/orange">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/EndEventTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/dark_text"
+                                android:inputType="none"
+                                android:focusable="false" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </LinearLayout>
 
                     <!-- Location -->

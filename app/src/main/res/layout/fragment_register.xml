@@ -9,160 +9,219 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="24dp"
       >
-
-        <!-- Title Text -->
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Join SukarelawanMly"
-            android:textSize="24sp"
-            android:textColor="@color/orange"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Full Name Input -->
-        <EditText
-            android:id="@+id/fullNameEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:textColorHint="@color/dark_gray"
-            android:textColor="@color/black"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@id/titleText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/edittext_background"
-            android:padding="16dp"/>
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Email Input -->
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColorHint="@color/dark_gray"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/fullNameEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/edittext_background"
-            android:padding="16dp"
-            android:inputType="textEmailAddress"/>
+            <ImageView
+                android:id="@+id/logo_uni"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo_unimy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Password Input -->
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColorHint="@color/dark_gray"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/emailEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/edittext_background"
-            android:padding="16dp"
-            android:inputType="textPassword"/>
-
-        <!-- Confirm Password Input -->
-        <EditText
-            android:id="@+id/confirmPasswordEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColorHint="@color/dark_gray"
-            android:background="@drawable/edittext_background"
-            android:padding="16dp"
-            android:inputType="textPassword"/>
-
-        <!-- Role Selection Title -->
-        <TextView
-            android:id="@+id/roleTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Role"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditText"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <!-- Role Radio Group -->
-        <RadioGroup
-            android:id="@+id/roleRadioGroup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/roleTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <RadioButton
-                android:id="@+id/volunteerRadioButton"
+            <TextView
+                android:id="@+id/x"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Volunteer"
-                android:textColor="@color/black"
-                android:layout_marginEnd="16dp"/>
+                android:text="X"
+                android:textColor="@color/orange"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/logo_uni"
+                app:layout_constraintStart_toStartOf="@+id/logo_uni"
+                app:layout_constraintTop_toBottomOf="@+id/logo_uni" />
 
-            <RadioButton
-                android:id="@+id/ngoRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="NGO"/>
-        </RadioGroup>
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo_uplift"
+                app:layout_constraintEnd_toEndOf="@+id/logo_uni"
+                app:layout_constraintStart_toStartOf="@+id/logo_uni"
+                app:layout_constraintTop_toBottomOf="@+id/x" />
 
-        <!-- Create Account Button -->
-        <Button
-            android:id="@+id/createAccountButton"
-            android:layout_width="0dp"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Account"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/roleRadioGroup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="16dp"/>
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/head">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:id="@+id/body"
+                >
+                <!-- Title Text -->
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join SukarelawanMly"
+                    android:textSize="24sp"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"/>
 
-        <!-- Login Prompt -->
-        <TextView
-            android:id="@+id/loginPrompt"
+                <!-- Full Name Input -->
+                <EditText
+                    android:id="@+id/fullNameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:textColorHint="@color/dark_gray"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/titleText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/edittext_background"
+                    android:padding="16dp"/>
+
+                <!-- Email Input -->
+                <EditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:textColorHint="@color/dark_gray"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/fullNameEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/edittext_background"
+                    android:padding="16dp"
+                    android:inputType="textEmailAddress"/>
+
+                <!-- Password Input -->
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textColorHint="@color/dark_gray"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/emailEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/edittext_background"
+                    android:padding="16dp"
+                    android:inputType="textPassword"/>
+
+                <!-- Confirm Password Input -->
+                <EditText
+                    android:id="@+id/confirmPasswordEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColorHint="@color/dark_gray"
+                    android:background="@drawable/edittext_background"
+                    android:padding="16dp"
+                    android:inputType="textPassword"/>
+
+                <!-- Role Selection Title -->
+                <TextView
+                    android:id="@+id/roleTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Role"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditText"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <!-- Role Radio Group -->
+                <RadioGroup
+                    android:id="@+id/roleRadioGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/roleTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/volunteerRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Volunteer"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <RadioButton
+                        android:id="@+id/ngoRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:text="NGO"/>
+                </RadioGroup>
+
+                <!-- Create Account Button -->
+                <Button
+                    android:id="@+id/createAccountButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Create Account"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/orange"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/roleRadioGroup"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="16dp"/>
+
+                <!-- Login Prompt -->
+                <TextView
+                    android:id="@+id/loginPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? Log in"
+                    android:textColor="@color/text"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/createAccountButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Log in"
-            android:textColor="@color/text"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/createAccountButton"
+            android:visibility="gone"
+            android:progressTint="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:progressTint="@color/orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

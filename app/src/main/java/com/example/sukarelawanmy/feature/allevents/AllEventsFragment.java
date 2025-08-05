@@ -22,7 +22,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.sukarelawanmy.R;
 import com.example.sukarelawanmy.databinding.FragmentAllEventsBinding;
 import com.example.sukarelawanmy.databinding.ItemEventBinding;
@@ -164,9 +163,41 @@ public class AllEventsFragment extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<Event> events = new ArrayList<>();
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        Event event = document.toObject(Event.class);
-                        event.setEventId(document.getId());
-                        events.add(event);
+                        try {
+                            Event event = new Event();
+                            event.setEventId(document.getId());
+                            event.setTitle(document.getString("title"));
+                            event.setLocation(document.getString("location"));
+                            event.setDate(document.getString("date"));
+                            event.setDescription(document.getString("description"));
+                            event.setImageUrl(document.getString("imageUrl"));
+                            event.setMaxParticipants(document.getLong("maxParticipants") != null ? document.getLong("maxParticipants").intValue() : 0);
+                            event.setCurrentParticipants(document.getLong("currentParticipants") != null ? document.getLong("currentParticipants").intValue() : 0);
+                            event.setRequiresApproval(Boolean.TRUE.equals(document.getBoolean("requiresApproval")));
+                            event.setNgoId(document.getString("ngoId"));
+                            event.setTime(document.getString("time"));
+                            event.setOrganizerName(document.getString("organizerName"));
+                            event.setEventCategory(document.getString("eventCategory"));
+                            Long eventMinutesLong = document.getLong("totalMinutes");
+                            int eventMinutes = eventMinutesLong != null ? eventMinutesLong.intValue() : 0;
+                            event.setTotalMinutes(eventMinutes);
+
+                            Object reqObj = document.get("requirement");
+                            if (reqObj instanceof List) {
+                                event.setRequirement(new ArrayList<>((List<String>) reqObj));
+                            } else if (reqObj instanceof String) {
+                                ArrayList<String> tempList = new ArrayList<>();
+                                tempList.add((String) reqObj);
+                                event.setRequirement(tempList);
+                            } else {
+                                event.setRequirement(new ArrayList<>());
+                            }
+
+                            events.add(event);
+                        } catch (Exception e) {
+                            Log.e("EventParsing", "Failed to parse event: " + e.getMessage());
+                        }
+
                     }
 
                     if (currentUserType.equals("Volunteer")) {
@@ -260,25 +291,6 @@ public class AllEventsFragment extends Fragment {
 
         showProgressDialog("Joining event...");
         createAutomaticParticipation(event, user.getUid());
-//
-//        Map<String, Object> participant = new HashMap<>();
-//        participant.put("eventId", event.getEventId());
-//        participant.put("userId", user.getUid());
-//        participant.put("joinedAt", FieldValue.serverTimestamp());
-//        participant.put("status", "registered");
-//        participant.put("ngoId", event.getNgoId());
-//
-//        db.collection("event_participants")
-//                .add(participant)
-//                .addOnSuccessListener(documentReference -> {
-//                    dismissProgressDialog();
-//                    showToast("Successfully joined event");
-//
-//                })
-//                .addOnFailureListener(e -> {
-//                    dismissProgressDialog();
-//                    showToast("Failed to join event");
-//                });
     }
 
     private void showUnjoinConfirmation(Event event) {
@@ -325,6 +337,7 @@ public class AllEventsFragment extends Fragment {
                         // Decrease user's attended event count
                         DocumentReference userRef = db.collection("users").document(userId);
                         batch.update(userRef, "eventsAttended", FieldValue.increment(-1));
+                        batch.update(userRef, "totalMinutesVolunteered", FieldValue.increment(-event.getTotalMinutes()));
 
                         // Commit batch
                         showProgressDialog("Cancelling participation...");
@@ -571,6 +584,8 @@ public class AllEventsFragment extends Fragment {
 
         DocumentReference userRef = db.collection("users").document(userId);
         batch.update(userRef, "eventsAttended", FieldValue.increment(1));
+        batch.update(userRef, "totalMinutesVolunteered", FieldValue.increment(event.getTotalMinutes()));
+
 
         batch.commit()
                 .addOnSuccessListener(aVoid -> {
@@ -635,72 +650,5 @@ public class AllEventsFragment extends Fragment {
             showToast("Failed to join event");
         }
     }
-//    private void cancelParticipation(Event event) {
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        if (currentUser == null) {
-//            showToast("Please sign in to cancel participation");
-//            return;
-//        }
-//
-//        String userId = currentUser.getUid();
-//        String eventId = event.getEventId();
-//
-//        // Step 1: Find the participant document
-//        db.collection("event_participants")
-//                .whereEqualTo("eventId", eventId)
-//                .whereEqualTo("userId", userId)
-//                .limit(1)
-//                .get()
-//                .addOnSuccessListener(querySnapshot -> {
-//                    if (!querySnapshot.isEmpty()) {
-//                        DocumentSnapshot participationDoc = querySnapshot.getDocuments().get(0);
-//                        String participationId = participationDoc.getId();
-//
-//                        // Step 2: Delete the document and update counts
-//                        WriteBatch batch = db.batch();
-//
-//                        // Delete participation
-//                        DocumentReference participantRef = db.collection("event_participants").document(participationId);
-//                        batch.delete(participantRef);
-//
-//                        // Decrease event participant count
-//                        DocumentReference eventRef = db.collection("events").document(eventId);
-//                        batch.update(eventRef, "currentParticipants", FieldValue.increment(-1));
-//
-//                        // Decrease user's attended event count
-//                        DocumentReference userRef = db.collection("users").document(userId);
-//                        batch.update(userRef, "eventsAttended", FieldValue.increment(-1));
-//
-//                        // Commit batch
-//                        showProgressDialog("Cancelling participation...");
-//                        batch.commit()
-//                                .addOnSuccessListener(aVoid -> {
-//                                    dismissProgressDialog();
-//                                    showToast("Participation cancelled successfully");
-//                                    binding.joinEventButton.setText("Join Event");
-//                                    isJoined=false;
-//                                    db.collection("events").document(eventId)
-//                                            .get()
-//                                            .addOnSuccessListener(document -> {
-//                                                Long current = document.getLong("currentParticipants");
-//                                                Long max = document.getLong("maxParticipants");
-//                                                if (current != null && max != null) {
-//                                                    binding.participantsCount.setText(getString(R.string.participants_format, current, max));
-//                                                }
-//                                            });
-//                                })
-//                                .addOnFailureListener(e -> {
-//                                    dismissProgressDialog();
-//                                    Log.e("CancelEvent", "Batch cancel failed", e);
-//                                    showToast("Failed to cancel participation");
-//                                });
-//                    } else {
-//                        showToast("You are not a participant in this event");
-//                    }
-//                })
-//                .addOnFailureListener(e -> {
-//                    Log.e("CancelEvent", "Failed to check participation", e);
-//                    showToast("Error checking your participation status");
-//                });
-//    }
+
 }

@@ -367,8 +367,13 @@ public class DashboardFragment extends Fragment {
 
 
     private void showEmptyState(boolean show) {
-        binding.recycler.setVisibility(show ? View.GONE : View.VISIBLE);
-        binding.emptyState.setVisibility(show ? View.VISIBLE : View.GONE);
+        try {
+            binding.recycler.setVisibility(show ? View.GONE : View.VISIBLE);
+            binding.emptyState.setVisibility(show ? View.VISIBLE : View.GONE);
+        } catch (Exception e) {
+
+        }
+
     }
 
 
@@ -387,17 +392,22 @@ public class DashboardFragment extends Fragment {
                                 ? documentSnapshot.getLong("eventsAttended")
                                 : 0;
 
-                        long hoursVolunteered = documentSnapshot.getLong("hoursVolunteered") != null
-                                ? documentSnapshot.getLong("hoursVolunteered")
+                        long totalMinutes = documentSnapshot.getLong("totalMinutesVolunteered") != null
+                                ? documentSnapshot.getLong("totalMinutesVolunteered")
                                 : 0;
 
-                        long impactScore = documentSnapshot.getLong("impactScore") != null
-                                ? documentSnapshot.getLong("impactScore")
-                                : 0;
+// Convert to hours and minutes
+                        long hours = totalMinutes / 60;
+                        long minutes = totalMinutes % 60;
+
+                        long impactScore = (eventsAttended * 10) + hours; // impactScore based on hours only
 
                         binding.textEventsCount.setText(String.valueOf(eventsAttended));
-                        binding.textStatsCount.setText(String.valueOf(hoursVolunteered));
+                        binding.textStatsCount.setText(hours + " h" ); // Example: 3h 45m
                         binding.impactScore.setText("Impact Score: " + impactScore);
+
+
+
                     } else {
                         setDefaultStats();
                     }
@@ -431,7 +441,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+
     }
 
     // Event Adapter class

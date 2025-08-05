@@ -90,10 +90,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         public void bind(Event event, boolean isJoined) {
             binding.eventTitle.setText(event.getTitle());
-            binding.eventDate.setText("Date: " + event.getDate());
-            binding.eventTime.setText("Time: " + event.getDate());
-            binding.eventOrganizer.setText("Organized by: " + event.getOrganizerName());
-
+            binding.eventDate.setText( event.getDate());
+            binding.eventTime.setText(event.getTime());
+            binding.eventEndTime.setText( event.getEndTime());
+            binding.eventOrganizer.setText( event.getOrganizerName());
             binding.btnJoin.setText(isJoined ? "UnJoin" : "Join");
             binding.btnJoin.setBackgroundTintList(ColorStateList.valueOf(
                     ContextCompat.getColor(itemView.getContext(),

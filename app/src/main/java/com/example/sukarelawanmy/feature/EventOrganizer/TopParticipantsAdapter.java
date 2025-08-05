@@ -97,10 +97,14 @@ public class TopParticipantsAdapter extends RecyclerView.Adapter<TopParticipants
 //            lastParticipation.setText(lastDate);
             lastParticipation.setText("Last joined: " +
                     DateUtils.formatTimestamp(participant.getLastParticipationDate()));
+            List<String> skillsList = user.getSkills();
 
-            // Format skills
-            String skills = "Skills: " + String.join(", ", user.getSkills());
-            participantSkills.setText(skills);
+            if (skillsList != null && !skillsList.isEmpty()) {
+                String skills = "Skills: " + String.join(", ", skillsList);
+                participantSkills.setText(skills);
+            } else {
+                participantSkills.setText("Skills: Not specified");
+            }
         }
     }
 }

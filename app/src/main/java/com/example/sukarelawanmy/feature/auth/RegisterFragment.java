@@ -184,24 +184,6 @@ public class RegisterFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-
-//                        Toast.makeText(getContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
-//
-//                        UserModel userModel = new UserModel(
-//                                user.getUid(),
-//                                fullName,
-//                                user.getEmail(),
-//                                role
-//                        );
-//
-//                        userModel.setJoinDate(new Timestamp(new Date()).toDate());
-//                        userViewModel.setUser(userModel);
-//
-//                        if ("NGO".equalsIgnoreCase(role)) {
-//                            navController.navigate(R.id.action_registerFragment_to_homeFragment);
-//                        } else if ("Volunteer".equalsIgnoreCase(role)) {
-//                            navController.navigate(R.id.action_registerFragment_to_dashboardFragment);
-//                        }
                     } else {
                         Toast.makeText(getContext(), "Failed to save user data: " +
                                 task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -242,6 +224,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+
     }
 }

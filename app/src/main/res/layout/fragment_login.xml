@@ -12,7 +12,46 @@
         android:layout_height="match_parent"
         >
 
-        <!-- App Logo/Icon -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginTitle"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo_uni"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo_unimy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textColor="@color/orange"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/logo_uni"
+                app:layout_constraintStart_toStartOf="@+id/logo_uni"
+                app:layout_constraintTop_toBottomOf="@+id/logo_uni" />
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo_uplift"
+                app:layout_constraintEnd_toEndOf="@+id/logo_uni"
+                app:layout_constraintStart_toStartOf="@+id/logo_uni"
+                app:layout_constraintTop_toBottomOf="@+id/x" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <!-- Title Text -->
@@ -21,13 +60,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textColor="@color/orange"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/head"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="15dp"/>
 
         <!-- Welcome Text -->
         <TextView
@@ -36,6 +75,7 @@
             android:layout_height="wrap_content"
             android:text="Wellcome back"
             android:textSize="20sp"
+            android:visibility="gone"
             android:textColor="@color/orange"
             app:layout_constraintTop_toBottomOf="@id/loginTitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/welcomeText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="32dp">
+            android:layout_marginTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"

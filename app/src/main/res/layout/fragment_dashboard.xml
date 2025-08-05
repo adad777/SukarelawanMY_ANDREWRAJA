@@ -6,11 +6,39 @@
     android:layout_height="match_parent"
     android:background="@color/bg_light_gray"
     tools:context=".feature.DashboardFragment">
+    <!-- App Title -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/titleCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/orange"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="SukarelawanMy"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -18,39 +46,13 @@
             android:paddingHorizontal="12dp"
             android:paddingBottom="80dp">
 
-            <!-- App Title -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/titleCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/orange"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/white"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="12dp"
-                    android:text="SukarelawanMy"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </com.google.android.material.card.MaterialCardView>
 
             <!-- Welcome Section -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/welcomeCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
@@ -65,15 +67,57 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/head"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/logo_uni"
+                            android:layout_width="120dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/logo_unimy"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/x"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X"
+                            android:textColor="@color/orange"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/uplift"
+                            app:layout_constraintStart_toEndOf="@+id/logo_uni"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/uplift"
+                            android:layout_width="120dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/logo_uplift"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
                         android:id="@+id/welcomeMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:text="Welcome back,"
                         android:textColor="@color/text_gray"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/head" />
 
                     <TextView
                         android:id="@+id/userName"
@@ -106,7 +150,7 @@
                         android:src="@drawable/ic_profile_placeholder"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/head" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -143,8 +187,8 @@
 
                     <TextView
                         android:id="@+id/seeAll"
-                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="See All"
                         android:textColor="@color/orange"
                         android:textSize="18sp"
@@ -201,8 +245,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="12dp"
                     android:paddingHorizontal="10dp"
+                    android:paddingVertical="12dp"
 
                     >
 
@@ -220,12 +264,12 @@
                     <!-- Events Card -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardEventsSummary"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:layout_marginEnd="12dp"
                         app:cardBackgroundColor="@color/card_background"
                         app:cardCornerRadius="12dp"
-                        android:layout_marginEnd="12dp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/statsHeader">
@@ -236,10 +280,10 @@
                             android:padding="16dp">
 
                             <ImageView
+                                android:id="@+id/imageView"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/ic_event"
-                                android:id="@+id/imageView"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:tint="@color/orange" />
@@ -273,13 +317,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
+                                android:layout_marginTop="8dp"
                                 android:textColor="@color/orange"
                                 android:textSize="26sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textEventsTitle"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintStart_toStartOf="@+id/textEventsLabel"
+                                app:layout_constraintTop_toBottomOf="@+id/textEventsLabel" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -289,7 +333,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardBackgroundColor="@color/card_background"
                         app:cardCornerRadius="12dp"
                         app:layout_constraintStart_toEndOf="@+id/guideline"
@@ -301,10 +345,10 @@
                             android:padding="16dp">
 
                             <ImageView
+                                android:id="@+id/imageView2"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/ic_hours"
-                                android:id="@+id/imageView2"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:tint="@color/orange" />
@@ -363,10 +407,10 @@
                         android:background="@drawable/bg_impact_score"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="8dp"
-                        android:visibility="gone"
                         android:text="Impact Score: 0"
                         android:textColor="@color/white"
                         android:textSize="16sp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cardEventsSummary" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

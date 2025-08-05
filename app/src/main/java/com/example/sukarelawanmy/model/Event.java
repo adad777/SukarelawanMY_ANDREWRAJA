@@ -2,7 +2,6 @@ package com.example.sukarelawanmy.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Event implements Serializable {
     private String eventId;
@@ -16,11 +15,25 @@ public class Event implements Serializable {
     private boolean requiresApproval;
     private String ngoId;
     private String time;
+    private String endTime;
     private String organizerName;
-    private ArrayList<String> requirement;
+    private ArrayList<String> requirement= new ArrayList<>();
     private String eventCategory;
 
     private boolean isJoined;
+    private int totalMinutes;
+    public String getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+    public int getTotalMinutes() {
+        return totalMinutes;
+    }
+    public void setTotalMinutes(int totalMinutes) {
+        this.totalMinutes = totalMinutes;
+    }
 
     public boolean isJoined() {
         return isJoined;

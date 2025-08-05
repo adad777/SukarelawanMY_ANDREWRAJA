@@ -24,6 +24,7 @@
             app:layout_constraintBottom_toTopOf="@id/eventLayout"
 
             >
+
             <!-- Welcome Section -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/welcomeCard"
@@ -44,15 +45,57 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/head"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/logo_uni"
+                            android:layout_width="120dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/logo_unimy"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/x"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X"
+                            android:textColor="@color/orange"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/uplift"
+                            app:layout_constraintStart_toEndOf="@+id/logo_uni"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/uplift"
+                            android:layout_width="120dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/logo_uplift"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
                         android:id="@+id/welcomeMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Welcome back,"
+                        android:layout_marginTop="8dp"
                         android:textColor="@color/text_gray"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/head" />
 
                     <TextView
                         android:id="@+id/userName"
@@ -85,7 +128,7 @@
                         android:src="@drawable/ic_profile_placeholder"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/head" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
