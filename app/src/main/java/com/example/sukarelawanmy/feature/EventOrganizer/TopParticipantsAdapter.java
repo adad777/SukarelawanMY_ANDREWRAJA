@@ -95,8 +95,8 @@ public class TopParticipantsAdapter extends RecyclerView.Adapter<TopParticipants
 //            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
 //            String lastDate = "Last joined: " + dateFormat.format(participant.getLastParticipationDate());
 //            lastParticipation.setText(lastDate);
-            lastParticipation.setText("Last joined: " +
-                    DateUtils.formatTimestamp(participant.getLastParticipationDate()));
+//            lastParticipation.setText("Last joined: " +
+//                    DateUtils.formatTimestamp(participant.getLastParticipationDate()));
             List<String> skillsList = user.getSkills();
 
             if (skillsList != null && !skillsList.isEmpty()) {

@@ -65,6 +65,7 @@
             android:text="Last joined: Oct 25, 2023"
             android:textColor="#666666"
             android:textSize="12sp"
+            android:visibility="gone"
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@id/participantName"
             app:layout_constraintTop_toBottomOf="@id/participantName"
