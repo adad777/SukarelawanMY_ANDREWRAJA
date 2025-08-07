@@ -73,7 +73,7 @@
             android:id="@+id/welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wellcome back"
+            android:text="Welcome back"
             android:textSize="20sp"
             android:visibility="gone"
             android:textColor="@color/orange"

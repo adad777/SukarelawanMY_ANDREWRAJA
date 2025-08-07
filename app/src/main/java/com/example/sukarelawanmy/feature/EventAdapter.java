@@ -101,7 +101,7 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
             holder.binding.eventDate.setText("No date");
         }
         Glide.with(holder.itemView.getContext())
-                .load("https://picsum.photos/200/300") // sample image URL
+                .load("https://imgur.com/a/Rz31kKa") // sample image URL
                 .placeholder(R.drawable.placeholder_image) // optional
                 .error(R.drawable.placeholder_image) // optional
                 .into(holder.binding.image);

@@ -140,7 +140,7 @@ public class LoginFragment extends Fragment {
                         }
                     } else {
                         // If sign in fails, display a message to the user.
-                           showMessageDialog("User Email or password is not correct");
+                           showMessageDialog("Email or password is incorrect. Try again or reset your password");
                         updateUI(null);
                     }
                 });
@@ -237,7 +237,7 @@ private void updateUI(FirebaseUser user) {
 
 
     private void showLoading(boolean isLoading) {
-        progress.setMessage("Loading...");
+        progress.setMessage("Authenticating... hang tight!");
         progress.setCancelable(false);
 
         if (isLoading) {
